@@ -1,5 +1,6 @@
 # Campo-Minado
 Campo minado desenvolvido para trabalho escolar, quanto em visualG, quanto em C#. serão comentadas as alterações.
+Descrição informativa: Campo minado é um popular jogo de computador para um jogador. Foi inventado por Robert Donner em 1989 e tem como objectivo revelar um campo de minas sem que alguma seja detonada.
 
 //------------------------------------------------------------------------------
 Algoritmo "Campo Minado"
