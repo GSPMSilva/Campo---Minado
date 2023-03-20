@@ -80,3 +80,48 @@ Inicio
       fimse
    fimenquanto
 fimalgoritmo
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Mapeamento feito em html - Utilizando o canvas.
+<!DOCTYPE html><html><head><title>Campo Minado</title><style>
+        canvas {
+            border: 1px solid #000;
+        }</style></head><body><canvas id="canvas" width="300" height="300"></canvas><script>
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+// define o tamanho do tabuleiro e o número de minas
+    var tamanhoTabuleiro = 10;
+    var numeroMinas = 10;
+    // cria o tabuleiro
+    var tabuleiro = [];
+    for (var i = 0; i < tamanhoTabuleiro; i++) {
+        tabuleiro[i] = [];
+        for (var j = 0; j < tamanhoTabuleiro; j++) {
+            tabuleiro[i][j] = 0;
+        }
+    }
+    // coloca as minas
+    for (var i = 0; i < numeroMinas; i++) {
+        var linha, coluna;
+        do {
+            linha = Math.floor(Math.random() * tamanhoTabuleiro);
+            coluna = Math.floor(Math.random() * tamanhoTabuleiro);
+        } while (tabuleiro[linha][coluna] === 9);
+        tabuleiro[linha][coluna] = 9;
+    }
+    // desenha o tabuleiro
+    for (var i = 0; i < tamanhoTabuleiro; i++) {
+        for (var j = 0; j < tamanhoTabuleiro; j++) {
+            if (tabuleiro[i][j] === 9) {
+                ctx.fillStyle = "#000";
+                ctx.fillRect(j * 30 + 1, i * 30 + 1, 28, 28);
+            } else {
+                ctx.fillStyle = "#fff";
+                ctx.fillRect(j * 30 + 1, i * 30 + 1, 28, 28);
+                ctx.strokeStyle = "#000";
+                ctx.strokeRect(j * 30 + 1, i * 30 + 1, 28, 28);
+            }
+        }
+    }</script></body></html>tem menu de contextoRedigirParágrafo
+    
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------
