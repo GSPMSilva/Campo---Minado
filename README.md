@@ -42,7 +42,7 @@ Inicio
                escreva(" *")
             senao
                   se (Tabuleiro[i,j] = 9) entao
-                     escreva(" -")
+                     escreva(" 0")
                   senao
                      escreva(Tabuleiro[i,j])
                   fimse
