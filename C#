@@ -1,0 +1,109 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using static System.Windows.Forms.LinkLabel;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
+namespace CampoMinado
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int[,] Tabuleiro = new int[10, 10];
+
+            string[] jogada = new string[2];
+
+            int i, j, NumeroMinas, Linha, Coluna, EspacosLiberados, Status, JogadasRestantes;
+
+            NumeroMinas = 10;
+            EspacosLiberados = 0;
+            JogadasRestantes = 90;
+            Status = 0;
+            // cria o tabuleiro
+            for (i = 0; i < 10; i++)
+            {
+                for (j = 0; j < 10; j++)
+                {
+                    Tabuleiro[i, j] = 0;
+                }
+            }
+            // colocar as minas
+            Random rnd = new Random();
+            for (i = 0; i < NumeroMinas; i++)
+            {
+                do
+                {
+                    Linha = rnd.Next(0, 9);
+                    Coluna = rnd.Next(0, 9);
+                } while (Tabuleiro[Linha, Coluna] != 0);
+                Tabuleiro[Linha, Coluna] = 9;
+            }
+            // loop principal do jogo
+            while (Status == 0)
+            {
+                // mostrar o tabuleiro antes das jogadas
+                for (i = 0; i < 10; i++)
+                {
+                    for (j = 0; j < 10; j++)
+                    {
+                        if (Tabuleiro[i, j] >= 10)
+                        {
+                            Console.Write(" *");
+                        }
+                        else if (Tabuleiro[i, j] == 9)
+                        {
+                            Console.Write(" 0");
+                        }
+                        else
+                        {
+                            Console.Write(" " + Tabuleiro[i, j]);
+                        }
+                    }
+                    Console.WriteLine();
+                }
+                // solicitar jogada do jogador
+                Console.WriteLine("Digite a linha e a coluna que deseja revelar (ex: 3 5):");
+                jogada[0] = Console.ReadLine();
+                jogada[1] = Console.ReadLine();
+                Linha = int.Parse(jogada[0]) - 1;
+                Coluna = int.Parse(jogada[1]) - 1;
+                // verificar se a jogada é válida
+                if (Linha < 0 || Linha > 9 || Coluna < 0 || Coluna > 9)
+                {
+                    Console.WriteLine("Jogada inválida, tente novamente.");
+                }
+                else
+                {
+                    if (Tabuleiro[Linha, Coluna] >= 10)
+                    {
+                        Console.WriteLine("Você acertou uma mina! Fim de jogo.");
+                        Status = 1;
+                    }
+                    else
+                    {
+                        // revelar espaço selecionado e verificar se o jogador ganhou
+                        Tabuleiro[Linha, Coluna] += 10;
+                        EspacosLiberados++;
+                        JogadasRestantes--;
+                        if (EspacosLiberados == 90 - NumeroMinas)
+                        {
+                            Console.WriteLine("Parabéns! Você venceu o jogo.");
+                            Status = 2;
+                        }
+                        else if (JogadasRestantes == 0)
+                        {
+                            Console.WriteLine("Você esgotou todas as jogadas! Fim de jogo.");
+                            Status = 1;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+}
+   
